@@ -1,36 +1,15 @@
-import { Controller, Post, Body, Get,Param, Patch } from '@nestjs/common';
+import { Controller, Post, Body, Get, Param, Patch, Delete } from '@nestjs/common';
+import { CreateArticleDto} from 'src/typeorm/dtos/CreateArticle.dto';
 import { EntertainmentService } from './entertainment.service';
 
 @Controller('entertainment')
 export class EntertainmentController{
-constructor(private readonly entertainmentService: EntertainmentService){}
+constructor(private entertainmentService: EntertainmentService){}
 
    @Post()
     addArticle(
-        @Body('title') entTitle:string,
-        @Body('description') entDesc:string,
+        @Body()CreateArticleDto: CreateArticleDto
         ){
-   
-   const generatedId = this.entertainmentService.insertArticle(
-    entTitle,
-    entDesc,
-    );
-   return { id: generatedId};
+   this.entertainmentService.insertArticle(CreateArticleDto);
     }
-    @Get()
-    getAllArticles(){
-        return this.entertainmentService.getEntertainment();
-    }
-    @Get(':id')
-    getArticle(@Param('id')entId:string,){
-        return this.entertainmentService.getSingleArticle(entId);
-    }
-    @Patch(':id')
-    updateArticle(
-         @Param('id') entId: string,
-         @Body('title') entTitle: string,
-         @Body('description') entDesc: string
-        ){
-            this.entertainmentService.updateEntertainment(entId,entTitle,entDesc)
-        }
 }

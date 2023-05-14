@@ -1,45 +1,36 @@
 import { Injectable,NotFoundException  } from '@nestjs/common';
 import { Entertainment } from './entertainment.model';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { entertainmentArticles } from 'src/typeorm/entertainmentArticles';
+import { CreateArticleParams } from 'src/utills/types';
 
 @Injectable()
 export class EntertainmentService {
-private entertainment: Entertainment[] = [];
 
-insertArticle(title:string,desc:string){
-    const entId = Math.random().toString();
-    const newEntertainment = new Entertainment(entId, title, desc);
-    this.entertainment.push(newEntertainment);
+constructor(
+    @InjectRepository(entertainmentArticles) private articleRepository: Repository<entertainmentArticles>,
+) {}
 
-    return entId;
+insertArticle(entDetails: CreateArticleParams){
+    const newArticle = this.articleRepository.create({
+        ...entDetails,
+        createdAt:new Date(),
+    });
+    return this.articleRepository.save(newArticle);
 }
 getEntertainment(){
-    return [...this.entertainment];
-}
-getSingleArticle(entertainmentId: string){
-    const entertainment = this.findEntertainment(entertainmentId)[0];
-    return {...entertainment};
-}
-
-updateArticle(entertainmentId: string, title: string,desc: string){ 
-    const [entertainment, index] = this.findEntertainment(entertainmentId);
-    const updatedEntertainment = {...entertainment};
-    if(title){
-        updatedEntertainment.title = title;
-    }
-    if(desc){
-        updatedEntertainment.desc = desc;
-    }
-
-    this.entertainment[index] = updatedEntertainment;
     
 }
+getSingleArticle(){
 
-private findEntertainment(id:string):[Entertainment,number]{
-    const entertainmentIndex = this.entertainment.findIndex(ent=> ent.id ===id);
-    const entertainment = this.entertainment[entertainmentIndex];
-    if (!entertainment){
-        throw new NotFoundException('could not find article');
-    }
- return [entertainment,entertainmentIndex];
+}
+
+updateArticle(){ 
+    
+}
+deleteArticle(){
+
 }
 }
+
