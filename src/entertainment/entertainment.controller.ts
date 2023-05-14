@@ -1,5 +1,6 @@
-import { Controller, Post, Body, Get, Param, Patch, Delete } from '@nestjs/common';
+import { Controller, Post, Body, Get, Param, Patch, Delete, ParseIntPipe } from '@nestjs/common';
 import { CreateArticleDto} from 'src/typeorm/dtos/CreateArticle.dto';
+import { updateArticleDto} from 'src/typeorm/dtos/updateArticle.dto';
 import { EntertainmentService } from './entertainment.service';
 
 @Controller('entertainment')
@@ -10,6 +11,32 @@ constructor(private entertainmentService: EntertainmentService){}
     addArticle(
         @Body()CreateArticleDto: CreateArticleDto
         ){
-   this.entertainmentService.insertArticle(CreateArticleDto);
+   return this.entertainmentService.insertArticle(CreateArticleDto);
+    }
+
+    @Get()
+    async getArticles(){
+    const articles = await this.entertainmentService.getAllArticles();
+    return articles;
+    }
+
+    @Get(':id')
+    async getSingleArticle(){
+        const articles = await this.entertainmentService.getAllArticles();
+        return articles;
+        }
+
+    @Patch(':id')
+    async updateArticleById(
+        @Param('id', ParseIntPipe) id:number,
+        @Body() updateArticleDto: updateArticleDto,
+    ){
+     await this.entertainmentService.updateArticle(id, updateArticleDto);
+    }
+    @Delete(':id')
+    async deleteArticleById(
+        @Param('id', ParseIntPipe) id:number,
+    ){
+     await this.entertainmentService.deleteArticle(id);
     }
 }

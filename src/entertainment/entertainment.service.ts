@@ -3,7 +3,7 @@ import { Entertainment } from './entertainment.model';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { entertainmentArticles } from 'src/typeorm/entertainmentArticles';
-import { CreateArticleParams } from 'src/utills/types';
+import { CreateArticleParams, updateArticleParams } from 'src/utills/types';
 
 @Injectable()
 export class EntertainmentService {
@@ -19,18 +19,19 @@ insertArticle(entDetails: CreateArticleParams){
     });
     return this.articleRepository.save(newArticle);
 }
-getEntertainment(){
-    
+getAllArticles(){
+    return this.articleRepository.find();
 }
-getSingleArticle(){
-
+getSingleArticle(id: number){
+    return this.articleRepository.find();
 }
 
-updateArticle(){ 
-    
+updateArticle(id: number, updateArticleDetails: updateArticleParams){ 
+  return  this.articleRepository.update({ id }, {...updateArticleDetails});
 }
-deleteArticle(){
 
+deleteArticle(id: number){
+return this.articleRepository.delete({ id });
 }
 }
 
