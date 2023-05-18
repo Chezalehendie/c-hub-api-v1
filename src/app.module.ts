@@ -4,9 +4,12 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { EntertainmentModule } from './entertainment/entertainment.module';
 import { entertainmentArticles } from './typeorm/entertainmentArticles';
+import { entertainmentClubs } from './typeorm/entities/entertainmentClubs';
+import { BusinessModule } from './business/business.module';
+import { businessItems } from './typeorm/entities/businessItems';
 
 @Module({
-  imports: [EntertainmentModule,
+  imports: [EntertainmentModule, BusinessModule,
   TypeOrmModule.forRoot({
     type:'mysql',
     host:'localhost',
@@ -14,7 +17,7 @@ import { entertainmentArticles } from './typeorm/entertainmentArticles';
     username:'root',
     password:'',
     database:'c_hub_api_v1',
-    entities:[entertainmentArticles],
+    entities:[entertainmentArticles,entertainmentClubs,businessItems],
     synchronize:true,
     }),
   ],

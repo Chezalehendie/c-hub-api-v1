@@ -1,17 +1,14 @@
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
-export class entertainmentArticles{
+export class entertainmentClubs{
 
     @PrimaryGeneratedColumn()
     id: number;
 
     @Column({unique:true})
-    articleName:string;
-
+    clubName:string;
+    
     @Column()
-    author:string;
-
-    @Column()
-    createdAt:Date;
+    clubDetails:string;
 }

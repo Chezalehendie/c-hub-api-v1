@@ -1,15 +1,16 @@
 import { Injectable,NotFoundException  } from '@nestjs/common';
-import { Entertainment } from './entertainment.model';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { entertainmentArticles } from 'src/typeorm/entertainmentArticles';
-import { CreateArticleParams, updateArticleParams } from 'src/utills/types';
+import { entertainmentClubs } from 'src/typeorm/entities/entertainmentClubs';
+import { CreateArticleParams, updateArticleParams, CreateClubParams, updateClubParams } from 'src/utills/types';
 
 @Injectable()
 export class EntertainmentService {
 
 constructor(
     @InjectRepository(entertainmentArticles) private articleRepository: Repository<entertainmentArticles>,
+    @InjectRepository(entertainmentArticles) private clubRepository: Repository<entertainmentClubs>
 ) {}
 
 insertArticle(entDetails: CreateArticleParams){
@@ -33,5 +34,29 @@ updateArticle(id: number, updateArticleDetails: updateArticleParams){
 deleteArticle(id: number){
 return this.articleRepository.delete({ id });
 }
+
+//entertainment clubs implementation
+insertClub(clubDetails: CreateClubParams){
+    const newClub = this.clubRepository.create({
+        ...clubDetails
+    });
+    return this.clubRepository.save(newClub);
+}
+
+getAllClubs(){
+    return this.clubRepository.find();
+}
+
+getSingleClub(id: number){
+    return this.clubRepository.find();
+}
+
+updateClub(id: number, updateClubDetails: updateClubParams){ 
+    return  this.clubRepository.update({ id }, {...updateClubDetails});
+  }
+
+  deleteClub(id: number){
+    return this.clubRepository.delete({ id });
+    }
 }
 
