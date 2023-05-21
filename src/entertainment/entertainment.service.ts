@@ -56,7 +56,7 @@ updateClub(id: number, updateClubDetails: updateClubParams){
   }
 
   deleteClub(id: number){
-    return this.clubRepository.delete({ id });
+    return this.clubRepository.delete({id});
     }
 }
 

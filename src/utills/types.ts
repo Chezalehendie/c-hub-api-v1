@@ -28,3 +28,38 @@ export type CreateItemParams = {
 export type updateItemsParams = {
     itemName : string;
 };
+
+export type CreateAppointmentParams = {
+    patientName : string;
+    patientId : number;
+    unimedId:string;
+    appointedTime:string;
+};
+
+export type updatePatientParams = {
+    patientName : string;
+    patientId : number;
+    unimedId:string;
+    appointedTime:string;
+};
+
+export type CreateStaffParams = {
+    firstName : string;
+    lastName: string;
+    staffId:number;
+    position:string;
+    address:string;
+    email:string;
+    phoneNumber:number;
+};
+
+export type updateStaffParams = {
+    firstName : string;
+    lastName: string;
+    staffId:number;
+    position:string;
+    address:string;
+    email:string;
+    phoneNumber:number;
+};
+

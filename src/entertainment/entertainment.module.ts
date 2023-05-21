@@ -9,5 +9,5 @@ import { entertainmentClubs } from 'src/typeorm/entities/entertainmentClubs';
   imports:[TypeOrmModule.forFeature([entertainmentArticles, entertainmentClubs])],
   controllers : [EntertainmentController],
   providers : [EntertainmentService],
-})
+}) 
 export class EntertainmentModule{}
