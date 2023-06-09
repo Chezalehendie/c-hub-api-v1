@@ -21,7 +21,7 @@ import { staff } from './typeorm/entities/staff';
     password:'',
     database:'c_hub_api_v1',
     entities:[entertainmentArticles,entertainmentClubs,businessItems,health,staff],
-    synchronize:true,
+    synchronize:false,
     }),
   ],
   controllers: [AppController],
